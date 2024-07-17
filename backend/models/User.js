@@ -1,4 +1,3 @@
-const { Double } = require('mongodb');
 const mongoose = require('mongoose');
 const { type } = require('os');
 
@@ -20,6 +19,10 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    dob: {
+        type: Date,
+        required: true
+    },
     otp: String,
     otpExpires: Date,
     passwordHash: String,
@@ -33,7 +36,7 @@ const UserSchema = new mongoose.Schema({
         type: Boolean
     },
     rating: {
-        type: Double
+        type: Number
     },
     address: {
         type: String

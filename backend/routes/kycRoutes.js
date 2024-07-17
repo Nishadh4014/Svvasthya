@@ -15,7 +15,7 @@ router.post('/submit', async (req, res) => {
         }
 
         // Update the user's KYC data
-        user.name = name;
+        user.firstname = name;
         user.dob = dob;
         user.address = address;
         user.email = email;
