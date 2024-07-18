@@ -14,6 +14,7 @@ app.use(express.json({ extended: false }));
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/kyc', require('./routes/kycRoutes'));
+app.use('/api/aadhaar', require('./routes/aadhaarRoutes'));
 
 const PORT = process.env.PORT || 5000;
 

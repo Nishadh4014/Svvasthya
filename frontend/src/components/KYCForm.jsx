@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 
 const KYCForm = () => {
     const [formData, setFormData] = useState({
-        name: '',
+        firstname: '',
+        lastname: '',
+        email: '',
         dob: '',
         address: '',
-        email: ''
+        city: '',
+        state: ''
     });
 
     const handleChange = (e) => {
@@ -37,10 +40,13 @@ const KYCForm = () => {
 
             // Clear form fields after successful submission
             setFormData({
-                name: '',
+                firstname: '',
+                lastname: '',
+                email: '',
                 dob: '',
                 address: '',
-                email: ''
+                city: '',
+                state: ''
             });
             alert("Success");
             // Optionally, you can redirect or show a success message here
@@ -55,12 +61,34 @@ const KYCForm = () => {
             <h2>KYC Verification Form</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="firstname">First Name</label>
                     <input
                         type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
+                        id="firstname"
+                        name="firstname"
+                        value={formData.firstname}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="lastname">Last Name</label>
+                    <input
+                        type="text"
+                        id="lastname"
+                        name="lastname"
+                        value={formData.lastname}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
                         onChange={handleChange}
                         required
                     />
@@ -87,12 +115,23 @@ const KYCForm = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="city">City</label>
                     <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
+                        type="text"
+                        id="city"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="state">State</label>
+                    <input
+                        type="text"
+                        id="state"
+                        name="state"
+                        value={formData.state}
                         onChange={handleChange}
                         required
                     />

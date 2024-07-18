@@ -47,6 +47,46 @@ const UserSchema = new mongoose.Schema({
     state: {
         type: String
     },
+    education: {
+        highestQualification: {
+            degree: String,
+            institute: String,
+            yearOfCompletion: String
+        }
+    },
+    certifications: [{
+        certificationName: String,
+        issuingOrganization: String,
+        yearOfCertification: String
+    }],
+    experience: [{
+        OrganizationName: String,
+        role: String,
+        duration: String,
+        type: String, // Description of medical experience, e.g., "5+ years in elderly care"
+    }],
+    skills: {
+        coreCompetencies: [String],
+        specialSkills: [String], // Medical skills relevant to caregiving
+        additionalTraining: String
+    },
+    languagesKnown: [String],
+    backgroundCheck: {
+        status: {
+            type: String,
+            enum: ['Pending', 'Approved', 'Rejected']
+        },
+        details: String // Additional details related to background check
+    },
+
+    references: [{
+        name: String,
+        contactNumber: String,
+        relationship: String
+    }],
+    profilePicture: {
+        type: String // URL or path to the profile picture
+    },
     created_at: {
         type: Date
     },

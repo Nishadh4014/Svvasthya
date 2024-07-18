@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 // Route to store KYC data
 router.post('/submit', async (req, res) => {
-    const { mobileNumber, name, dob, address, email } = req.body;
+    const { mobileNumber, firstname, lastname, dob, address, email, city, state } = req.body;
 
     try {
         // Find the user by mobile number
@@ -15,10 +15,14 @@ router.post('/submit', async (req, res) => {
         }
 
         // Update the user's KYC data
-        user.firstname = name;
+        user.firstname = firstname;
+        user.lastname = lastname;
         user.dob = dob;
         user.address = address;
         user.email = email;
+        user.city = city;
+        user.state = state;
+        user.updated_at = new Date();
 
         // Save the updated user to the database
         await user.save();
