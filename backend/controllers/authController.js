@@ -63,12 +63,52 @@ exports.verify_otp = async (req, res) => {
 
 // signup with password
 exports.signup = async (req, res) => {
-    const { mobileNumber, password } = req.body;
-
+ 
     try {
+
+        const { firstname,lastname,email,dob,mobileNumber,password,categories,status,rating,address,city,state,education,certification,experience,skills,languagesKnown,references} = req.body;
+
+        let user = await User.findOne({mobileNumber});
+        if(user) {
+            return res.status(400).json({
+                success: false,
+                message: "Attendant already exists"
+            });
+        }
+        
         const hashedPassword = await bcrypt.hash(password, 10);
-        const response = await authService.signupWithPassword(mobileNumber, hashedPassword);
-        res.status(201).json(response);
+
+        user = await User.create({
+            firstname,
+            lastname,
+            email,
+            mobileNumber,
+            dob,
+            hashedPassword,
+            categories,
+            address,
+            city,
+            state,
+            education,
+            certification,
+            experience,
+            skills,
+            references,
+            profilePicture: "sample_url"
+        });
+        
+        // attendant will be directly logged in after sign up
+        const token = await user.generateToken();
+        const options = {
+            expires: new Date(Date.now() + 90*24*60*60*1000),
+            httponly: true,
+        };
+
+        res.status(201).cookie("token",token,options).json({
+            success: true,
+            user,
+            token,
+        })
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error signing up' });
@@ -91,9 +131,19 @@ exports.login = async (req, res) => {
       if (!passwordMatch) {
         return res.status(401).json({ error: 'Invalid mobile number or password' });
       }
-  
-      // At this point, authentication is successful
-      res.status(200).json({ message: 'Login successful' });
+      
+      const token = await user.generateToken();
+        const options = {
+            expires: new Date(Date.now() + 90*24*60*60*1000),
+            httponly: true,
+        };
+
+
+        res.status(200).cookie("token",token,options).json({
+            success: true,
+            user,
+            token,
+        })
     } catch (error) {
       console.error('Login error:', error);
       res.status(500).json({ error: 'Internal server error' });

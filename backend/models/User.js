@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { type } = require('os');
+const { jwt } = require('twilio');
+require("dotenv").config({path: "backend/config/config.env"});
 
 const UserSchema = new mongoose.Schema({
     firstname: {
@@ -23,8 +25,6 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    otp: String,
-    otpExpires: Date,
     passwordHash: String,
     categories: [
         {
@@ -33,10 +33,12 @@ const UserSchema = new mongoose.Schema({
         }
     ],
     status: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     rating: {
-        type: Number
+        type: Number,
+        default: 3
     },
     address: {
         type: String
@@ -71,14 +73,11 @@ const UserSchema = new mongoose.Schema({
         additionalTraining: String
     },
     languagesKnown: [String],
-    backgroundCheck: {
-        status: {
-            type: String,
-            enum: ['Pending', 'Approved', 'Rejected']
-        },
-        details: String // Additional details related to background check
+    backgroundCheck_status: {
+        type: String,
+        enum: ['Pending', 'Approved', 'Rejected'],
+        default: "Pending"
     },
-
     references: [{
         name: String,
         contactNumber: String,
@@ -88,21 +87,33 @@ const UserSchema = new mongoose.Schema({
         type: String // URL or path to the profile picture
     },
     created_at: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     updated_at: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     appointments: [
         {
-            type: String         // appointment id
+            type: mongoose.Schema.Types.ObjectId,         // appointment id
+            default: [],
+            ref: "Appointment"         // foreign key
         }
     ],
     payments: [
         {
-            type: String          // transaction ids
+            type: mongoose.Schema.Types.ObjectId,          // transaction ids
+            default: [],
+            ref: "Payment"             // foreign key
         }
     ]
 });
+
+
+UserSchema.methods.generateToken = function() {
+    return jwt.sign({_id: this._id}, process.env.JWT_SECRET);
+};
+
 
 module.exports = mongoose.model('User', UserSchema);
