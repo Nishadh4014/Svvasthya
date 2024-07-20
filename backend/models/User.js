@@ -6,15 +6,12 @@ require("dotenv").config({path: "backend/config/config.env"});
 const UserSchema = new mongoose.Schema({
     firstname: {
         type: String,
-        required: true
     },
     lastname: {
         type: String,
-        required: true
     },
     email: {
         type: String,
-        required: true
     },
     mobileNumber: {
         type: String,
@@ -31,8 +28,7 @@ const UserSchema = new mongoose.Schema({
         type: Date
     },
     dob: {
-        type: Date,
-        required: true
+        type: Date
     },
     passwordHash: String,
     categories: [
@@ -97,11 +93,11 @@ const UserSchema = new mongoose.Schema({
     },
     created_at: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     updated_at: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     appointments: [
         {
