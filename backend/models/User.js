@@ -18,8 +18,17 @@ const UserSchema = new mongoose.Schema({
     },
     mobileNumber: {
         type: String,
-        required: true,
-        unique: true,
+        unique: true 
+    },
+    aadharNumber: {
+        type: String,
+        unique: true
+    },
+    otp:{
+        type: String,
+    },
+    otpExpires:{
+        type: Date
     },
     dob: {
         type: Date,

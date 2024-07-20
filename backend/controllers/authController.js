@@ -61,12 +61,12 @@ exports.verify_otp = async (req, res) => {
 
 };
 
-// signup with password
-exports.signup = async (req, res) => {
+// sign up page 1
+exports.signup_kyc = async (req, res) => {
  
     try {
 
-        const { firstname,lastname,email,dob,mobileNumber,password,categories,status,rating,address,city,state,education,certification,experience,skills,languagesKnown,references} = req.body;
+        const { aadharNumber,mobileNumber,password } = req.body;
 
         let user = await User.findOne({mobileNumber});
         if(user) {
@@ -78,24 +78,36 @@ exports.signup = async (req, res) => {
         
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Perform the third party KYC logic here...
+
+
+
+
+        // Create user after OTP verification with these three feilds and make other feilds dummy!!
         user = await User.create({
-            firstname,
-            lastname,
-            email,
-            mobileNumber,
-            dob,
-            hashedPassword,
-            categories,
-            address,
-            city,
-            state,
-            education,
-            certification,
-            experience,
-            skills,
-            references,
-            profilePicture: "sample_url"
+            
         });
+
+        res.status(200).json({ message: 'KYC verfication succesful' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error signing up' });
+    }
+};
+
+// signup page 2
+exports.signup_basic_details = async (req, res) => {
+ 
+    try {
+
+        const { firstname,lastname,email,dob,categories,address,city,state,education,certification,experience,skills,languagesKnown,references} = req.body;
+
+        // find the current user by his request id (will sent through the route)
+        // userId, updateData will be defined here...
+
+        
+        // update his basic details record
+        const result = await User.findByIdAndUpdate(userId, updateData, { new: true });
         
         // attendant will be directly logged in after sign up
         const token = await user.generateToken();

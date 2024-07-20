@@ -5,7 +5,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const authService = require('../services/authService');
-const { send_otp, verify_otp, signup, login } = require('../controllers/authController');
+const { send_otp, verify_otp, login, signup_kyc, signup_basic_details } = require('../controllers/authController');
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -17,8 +17,11 @@ router.route("/send-otp").post(send_otp);
 // Verify OTP
 router.route("/verify-otp").post(verify_otp);
 
-// Signup with password
-router.route("/signup").post(signup);
+// Signup page 1 api
+router.route("/complete_kyc").post(signup_kyc);
+
+// Signup page 2 api
+router.route("/signup/:id").post(signup_basic_details);
 
 // login
 router.route("/login").post(login);
