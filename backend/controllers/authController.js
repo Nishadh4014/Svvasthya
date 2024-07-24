@@ -1,3 +1,4 @@
+const User = require('../models/User');
 const authService = require('../services/authService');
 
 
@@ -161,7 +162,6 @@ exports.login = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
 }
-
 
 
 

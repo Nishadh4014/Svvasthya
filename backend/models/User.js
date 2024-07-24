@@ -112,7 +112,11 @@ const UserSchema = new mongoose.Schema({
             default: [],
             ref: "Payment"             // foreign key
         }
-    ]
+    ],
+    location: {
+        type: "Point",
+        coordinates: []
+    }
 });
 
 
