@@ -1,0 +1,59 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    height: 50px;
+    margin-left: 45px;
+    margin-top: 1px;
+    animation: moveUpLogo 1s ease-out forwards;
+    animation-delay: 1s;
+}
+
+@keyframes moveUpLogo {
+    0% {
+        transform: translateY(500px); 
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    margin: 0 15px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+.navbar ul li a:hover {
+    border-bottom: 2px solid #000;
+}
+
+.emergency {
+    background-color: #F0592A;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.emergency-call {
+    text-decoration: none;
+    color: #fff;
+    font-size:medium;
+    font-weight: bold;
+}

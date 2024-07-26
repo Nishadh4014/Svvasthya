@@ -10,11 +10,9 @@ connectDB();
 
 // Init Middleware
 app.use(cors());
-app.use(express.json({ extended: false }));
+app.use(express.json());
 
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/kyc', require('./routes/kycRoutes'));
-app.use('/api/aadhaar', require('./routes/aadhaarRoutes'));
 
 const PORT = process.env.PORT || 5000;
 

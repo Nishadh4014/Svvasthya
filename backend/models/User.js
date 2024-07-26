@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const { type } = require('os');
-const { jwt } = require('twilio');
-require("dotenv").config({path: "backend/config/config.env"});
+const jwt = require('jsonwebtoken');
+require("dotenv").config({ path: "backend/config/config.env" });
 
 const UserSchema = new mongoose.Schema({
     firstname: {
@@ -15,16 +14,18 @@ const UserSchema = new mongoose.Schema({
     },
     mobileNumber: {
         type: String,
-        unique: true 
+        unique: true,
+        required: true
     },
     aadharNumber: {
         type: String,
-        unique: true
+        unique: true,
+        default: 0
     },
-    otp:{
+    otp: {
         type: String,
     },
-    otpExpires:{
+    otpExpires: {
         type: Date
     },
     dob: {
@@ -93,11 +94,11 @@ const UserSchema = new mongoose.Schema({
     },
     created_at: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     updated_at: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     appointments: [
         {
@@ -114,14 +115,22 @@ const UserSchema = new mongoose.Schema({
         }
     ],
     location: {
-        type: "Point",
-        coordinates: []
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true,
+            default: 'Point'
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
     }
 });
 
 
-UserSchema.methods.generateToken = function() {
-    return jwt.sign({_id: this._id}, process.env.JWT_SECRET);
+UserSchema.methods.generateToken = function () {
+    return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 
 

@@ -1,0 +1,264 @@
+.frameChild,
+.swasthyaLogoChild {
+  position: relative;
+  max-width: 100%;
+}
+.frameChild {
+  height: 443px;
+  width: 1720px;
+  border-radius: var(--br-21xl);
+  background-color: var(--color-darkslateblue-100);
+  display: none;
+}
+.swasthyaLogoChild {
+  height: 131.8px;
+  flex: 1;
+  overflow: hidden;
+}
+.infoswasthyacom,
+.loremIpsumDolor {
+  width: 316px;
+  position: absolute;
+  margin: 0 !important;
+  right: -116px;
+  bottom: -110px;
+  line-height: 30px;
+  display: inline-block;
+}
+.infoswasthyacom {
+  bottom: -160.2px;
+  white-space: nowrap;
+}
+.menu1 {
+  top: 50px;
+  right: -352px;
+  min-width: 68px;
+}
+.company,
+.menu1,
+.menu2,
+.menu3,
+.menu4,
+.menu5 {
+  position: absolute;
+  margin: 0 !important;
+  line-height: 30px;
+  display: inline-block;
+}
+.company {
+  top: 0;
+  right: -378px;
+  min-width: 94px;
+}
+.menu2,
+.menu3,
+.menu4,
+.menu5 {
+  right: -355px;
+  bottom: 1.8px;
+  min-width: 71px;
+}
+.menu3,
+.menu4,
+.menu5 {
+  right: -356px;
+  bottom: -48.2px;
+  min-width: 72px;
+}
+.menu4,
+.menu5 {
+  bottom: -98.2px;
+}
+.menu5 {
+  right: -355px;
+  bottom: -148.2px;
+  min-width: 71px;
+}
+.menu11 {
+  top: 50px;
+  right: -614px;
+  min-width: 68px;
+}
+.forCustomers,
+.menu11,
+.menu21,
+.menu31,
+.menu41,
+.menu51 {
+  position: absolute;
+  margin: 0 !important;
+  line-height: 30px;
+  display: inline-block;
+}
+.forCustomers {
+  top: 0;
+  right: -687px;
+}
+.menu21,
+.menu31,
+.menu41,
+.menu51 {
+  right: -617px;
+  bottom: 1.8px;
+  min-width: 71px;
+}
+.menu31,
+.menu41,
+.menu51 {
+  right: -618px;
+  bottom: -48.2px;
+  min-width: 72px;
+}
+.menu41,
+.menu51 {
+  right: -612px;
+  bottom: -98.2px;
+  min-width: 66px;
+}
+.menu51 {
+  right: -617px;
+  bottom: -148.2px;
+  min-width: 71px;
+}
+.menu12 {
+  top: 50px;
+  right: -923px;
+  min-width: 68px;
+}
+.forPartners,
+.menu12,
+.menu22,
+.menu32 {
+  position: absolute;
+  margin: 0 !important;
+  line-height: 30px;
+  display: inline-block;
+}
+.forPartners {
+  top: 0;
+  right: -976px;
+  min-width: 121px;
+}
+.menu22,
+.menu32 {
+  right: -926px;
+  bottom: 1.8px;
+  min-width: 71px;
+}
+.menu32 {
+  right: -927px;
+  bottom: -48.2px;
+  min-width: 72px;
+}
+.menu42 {
+  right: -921px;
+  bottom: -98.2px;
+  min-width: 66px;
+}
+.menu42,
+.menu52,
+.socialLink {
+  position: absolute;
+  margin: 0 !important;
+  line-height: 30px;
+  display: inline-block;
+}
+.menu52 {
+  right: -926px;
+  bottom: -148.2px;
+  min-width: 71px;
+}
+.socialLink {
+  top: 0;
+  right: -1250px;
+  min-width: 106px;
+}
+.facebook1Icon,
+.instagram1Icon,
+.linkedinInIcon {
+  height: 26.8px;
+  width: 26.8px;
+  position: absolute;
+  margin: 0 !important;
+  right: -1302.8px;
+  bottom: 50.5px;
+}
+.facebook1Icon,
+.linkedinInIcon {
+  width: 26.9px;
+  right: -1170.9px;
+  bottom: 50.4px;
+}
+.facebook1Icon {
+  height: 36px;
+  width: 36px;
+  right: -1241px;
+  bottom: 45.8px;
+}
+.footer,
+.rectangleParent,
+.swasthyaLogo {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.swasthyaLogo {
+  width: 200px;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 1;
+}
+.footer,
+.rectangleParent {
+  align-self: stretch;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.rectangleParent {
+  width: 1720px;
+  border-radius: var(--br-21xl);
+  background-color: var(--color-darkslateblue-100);
+  justify-content: flex-start;
+  padding: var(--padding-52xl) var(--padding-81xl);
+}
+.footer {
+  height: 443px;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  flex-shrink: 0;
+  text-align: justify;
+  font-size: var(--font-size-xl);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
+@media screen and (max-width: 450px) {
+  .company,
+  .forCustomers,
+  .forPartners,
+  .infoswasthyacom,
+  .loremIpsumDolor,
+  .menu1,
+  .menu11,
+  .menu12,
+  .menu2,
+  .menu21,
+  .menu22,
+  .menu3,
+  .menu31,
+  .menu32,
+  .menu4,
+  .menu41,
+  .menu42,
+  .menu5,
+  .menu51,
+  .menu52,
+  .socialLink {
+    font-size: var(--font-size-base);
+    line-height: 24px;
+  }
+  .rectangleParent {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}

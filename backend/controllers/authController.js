@@ -1,26 +1,46 @@
 const User = require('../models/User');
+const Customer = require('../models/Customer');
 const authService = require('../services/authService');
+const twilio = require('twilio');
+require('dotenv').config({ path: './config/config.env' });
 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = new twilio(accountSid, authToken);
 
 // send OTP
 exports.send_otp = async (req, res) => {
-    const { mobileNumber } = req.body;
-
+    const { mobileNumber, role } = req.body;
+    // console.log('Request body:', req.body); 
+    
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpires = new Date(Date.now() + 10 * 60000); 
 
     try {
-        let user = await User.findOne({ mobileNumber });
+        let userOrCustomer;
 
-        if (!user) {
-            user = new User({ mobileNumber });
+        // Determine which model to use based on role
+        if (role === 'Customer') {
+            userOrCustomer = await Customer.findOne({ mobileNumber });
+            if (!userOrCustomer) {
+                userOrCustomer = new Customer({ mobileNumber });
+            }
+        } else if (role === 'User') {
+            userOrCustomer = await User.findOne({ mobileNumber });
+            if (!userOrCustomer) {
+                userOrCustomer = new User({ mobileNumber });
+            }
+        } else {
+            return res.status(400).json({ error: 'Invalid role specified' });
         }
 
-        user.otp = otp;
-        user.otpExpires = otpExpires;
+        // Set OTP and expiration
+        userOrCustomer.otp = otp;
+        userOrCustomer.otpExpires = otpExpires;
 
-        await user.save();
+        await userOrCustomer.save();
 
+        // Send OTP using Twilio
         await client.messages.create({
             body: `Your OTP is ${otp}`,
             to: mobileNumber,
@@ -36,30 +56,40 @@ exports.send_otp = async (req, res) => {
 
 // verify OTP
 exports.verify_otp = async (req, res) => {
-
-    const { mobileNumber, otp } = req.body;
+    const { mobileNumber, otp, role } = req.body;
 
     try {
-        const user = await User.findOne({ mobileNumber });
+        let userOrCustomer;
 
-        if (!user) {
-            return res.status(400).send('User not found');
+        // Determine which model to use based on role
+        if (role === 'Customer') {
+            userOrCustomer = await Customer.findOne({ mobileNumber });
+        } else if (role === 'User') {
+            userOrCustomer = await User.findOne({ mobileNumber });
+        } else {
+            return res.status(400).json({ error: 'Invalid role specified' });
         }
 
-        if (user.otp !== otp || user.otpExpires < new Date()) {
-            return res.status(400).send('Invalid or expired OTP');
+        // Check if userOrCustomer exists
+        if (!userOrCustomer) {
+            return res.status(400).json({ error: 'User or Customer not found' });
         }
 
-        user.otp = null;
-        user.otpExpires = null;
-        await user.save();
+        // Verify OTP and expiration
+        if (userOrCustomer.otp !== otp || userOrCustomer.otpExpires < new Date()) {
+            return res.status(400).json({ error: 'Invalid or expired OTP' });
+        }
+
+        // Clear OTP fields
+        userOrCustomer.otp = null;
+        userOrCustomer.otpExpires = null;
+        await userOrCustomer.save();
 
         res.status(200).json({ message: 'OTP verified successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error verifying OTP' });
     }
-
 };
 
 // sign up page 1
