@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import Signup from './components/SignUp.jsx';
 import Login from './components/Login.jsx';
-import KYCForm from './components/KYCForm.jsx';
+import OtpVerification from './components/OtpVerification.jsx';
 import Home from './pages/Home.jsx';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/kycform" element={<KYCForm />} />
+          <Route path="/otpverification" element={<OtpVerification />} />
         </Routes>
       </div>
     </Router>
