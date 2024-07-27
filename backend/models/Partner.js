@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 require("dotenv").config({ path: "backend/config/config.env" });
 
-const UserSchema = new mongoose.Schema({
+const PartnerSchema = new mongoose.Schema({
     firstname: {
         type: String,
     },
@@ -129,9 +129,9 @@ const UserSchema = new mongoose.Schema({
 });
 
 
-UserSchema.methods.generateToken = function () {
+PartnerSchema.methods.generateToken = function () {
     return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Partner', PartnerSchema);

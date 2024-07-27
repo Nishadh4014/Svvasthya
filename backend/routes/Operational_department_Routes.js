@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const twilio = require('twilio');
-const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const authService = require('../services/authService');

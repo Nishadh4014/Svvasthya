@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const Partner = require("../models/Partner");
 const jwt = require("jsonwebtoken");
 
 exports.isAuthenticated = async (req,res,next) => {
@@ -13,7 +13,7 @@ exports.isAuthenticated = async (req,res,next) => {
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.user = await User.findById(decoded._id);
+        req.partner = await Partner.findById(decoded._id);
 
         next();
     } catch (error) {
