@@ -1,0 +1,35 @@
+.faqs-container {
+    font-family: 'Arial, sans-serif';
+    margin: 20px;
+  }
+  
+  .faqs-container h1 {
+    font-size: 36px;
+    color: #3b2a90;
+  }
+  
+  .faq-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .faq-question {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: #3b2a90;
+  }
+  
+  .faq-question span {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .faq-answer {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+  

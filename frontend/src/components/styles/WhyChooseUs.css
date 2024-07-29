@@ -1,0 +1,58 @@
+.why-choose-us {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .why-choose-us h1 {
+    font-size: 45px;
+    font-weight: bold;
+    color: #3C3B6E;
+  }
+  
+  .benefits {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .benefit {
+    text-align: center;
+    width: 30%;
+  }
+
+  .benefit:nth-child(1){
+    border: solid 1.5px orange;
+    border-radius: 25px;
+    padding-top: 20px;
+  }
+
+  .benefit:nth-child(2){
+    border: solid 1.5px green;
+    border-radius: 25px;
+    padding-top: 20px;
+  }
+
+  .benefit:nth-child(3){
+    border: solid 1.5px navy;
+    border-radius: 25px;
+    padding-top: 20px;
+  }
+
+  
+  .benefit img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .benefit h2 {
+    font-size: 24px;
+    color: #3C3B6E;
+    margin-top: 10px;
+  }
+  
+  .benefit p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 10px;
+  }
+  

@@ -1,0 +1,23 @@
+.featured-partners {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .featured-partners h1 {
+    font-size: 50px;
+    font-weight: bold;
+    color: #3C3B6E;
+  }
+  
+  .partners {
+    display: flex;
+    justify-content: space-around;
+    margin: 25px 30px 15px 30px;
+  }
+  
+  .partners img {
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+  }
+  

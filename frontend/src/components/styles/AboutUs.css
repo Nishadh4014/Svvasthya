@@ -1,0 +1,48 @@
+.about-us-container {
+    font-family: 'Arial, sans-serif';
+    margin: 20px;
+  }
+  
+  .about-us-container h1 {
+    font-size: 36px;
+    color: #3b2a90;
+    text-align: center;
+  }
+  
+  .about-us-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .about-us-item {
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .mission {
+    background-color: #f4a261;
+  }
+  
+  .values {
+    background-color: #e76f51;
+  }
+  
+  .team {
+    background-color: #2a9d8f;
+  }
+  
+  .experience {
+    background-color: #264653;
+  }
+  
+  .about-us-item h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .about-us-item p {
+    font-size: 16px;
+  }
+  

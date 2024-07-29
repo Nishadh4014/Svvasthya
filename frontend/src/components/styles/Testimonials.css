@@ -1,0 +1,35 @@
+.testimonials {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .testimonials h1 {
+    font-size: 50px;
+    font-weight: 700;
+    color: #3C3B6E;
+  }
+  
+  .testimonial-list {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+  }
+  
+  .testimonial {
+    text-align: left;
+    width: 42%;
+    background-color: #F2F9F6;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  
+  .testimonial p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .testimonial strong {
+    font-size: 16px;
+    color: #3C3B6E;
+  }
+  
