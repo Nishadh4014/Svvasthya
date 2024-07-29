@@ -1,0 +1,40 @@
+.numericals-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.numerical-box {
+  border: 1px solid #00A74A;
+  border-radius: 10px;
+  padding: 45px;
+  width: 22%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.numerical-value {
+  font-size: 56px;
+  font-weight: bold;
+  color: #00A74A;
+}
+
+.numerical-label {
+  font-size: 16px;
+  color: #90EE90;
+}
+
+.numerical-box:hover {
+  background: url('../../assets/watermark.svg') no-repeat center center;
+  background-color: #00A74A;
+  color: #ffffff;
+  background-size: cover; 
+}
+
+.numerical-box:hover .numerical-value {
+  color: #ffffff;
+}
+
+.numerical-box:hover .numerical-label {
+  color: #ffffff;
+}
