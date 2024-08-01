@@ -2,15 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 7px 20px;
+    padding: 6px 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .logo img {
-    height: 50px;
+    height: 48px;
     margin-left: 45px;
-    margin-top: 1px;
+    margin-top: 2px;
     animation: moveUpLogo 1s ease-out forwards;
     animation-delay: 1s;
 }
@@ -28,7 +28,7 @@
 .navbar ul {
     display: flex;
     list-style: none;
-    margin: 0;
+    margin: 0 0 0 25px ;
     padding: 0;
 }
 
@@ -39,6 +39,9 @@
 .navbar ul li a {
     text-decoration: none;
     color: #000;
+    font-size: 17px;
+    color: var(--color-midnightblue);
+    font-family: var(--font-inter-tight);
 }
 
 .navbar ul li a:hover {

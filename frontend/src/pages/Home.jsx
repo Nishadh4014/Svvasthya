@@ -19,7 +19,6 @@ const Home = () => {
     <Hero />
     <RealTimeSearch />
     <HowWeWorks />
-    <RealTimeSearch />
     <Numericals />
     <FeaturedPartners />
     <WhyChooseUs />

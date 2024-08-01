@@ -13,7 +13,8 @@ function Header() {
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#about">About us</a></li>
-                    <li><a href="#faqs">FAQs</a></li>
+                    <li><a href="#faqs">Svvasthya Army</a></li>
+                    <li><a href="#faqs">Svvasthya Saathi</a></li>
                 </ul>
             </nav>
             <div className="emergency">

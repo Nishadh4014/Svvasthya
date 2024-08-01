@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 body {
@@ -8,14 +9,15 @@ body {
 }
 :root {
   /* fonts */
-  --font-inter: Inter;
   --font-inter-tight: "Inter Tight";
+  --font-inter: Inter;
+  --font-anek-devanagari: "Anek Devanagari";
 
   /* font sizes */
+  --font-size-5xl: 24px;
   --font-size-xl: 20px;
   --font-size-base: 16px;
   --font-size-11xl: 30px;
-  --font-size-5xl: 24px;
   --font-size-lg: 18px;
   --font-size-lgi: 19px;
   --font-size-61xl: 80px;
@@ -32,22 +34,25 @@ body {
 
   /* Colors */
   --color-white: #fff;
-  --color-darkslateblue-100: #282261;
-  --color-darkslateblue-200: rgba(40, 34, 97, 0.05);
+  --color-gray-100: #252627;
+  --color-gray-200: rgba(37, 38, 39, 0.1);
+  --color-midnightblue: #262163;
   --color-tomato-100: #ef5a2a;
   --color-tomato-200: #f0592a;
   --color-tomato-300: rgba(239, 90, 42, 0.1);
   --color-tomato-400: rgba(239, 90, 42, 0.11);
   --color-tomato-500: rgba(239, 90, 42, 0.2);
-  --color-gray-100: #252627;
-  --color-gray-200: rgba(37, 38, 39, 0.1);
+  --color-darkslateblue-100: #282261;
+  --color-darkslateblue-300: rgba(40, 34, 97, 0.2);
+  --color-darkslateblue-200: rgba(40, 34, 97, 0.05);
   --color-mediumseagreen-100: #039347;
   --color-mediumseagreen-200: #009247;
+  --color-mediumseagreen-300: rgba(3, 147, 71, 0.5);
+  --color-mediumseagreen-400: rgba(3, 147, 71, 0.05);
   --color-yellowgreen: #8bc540;
   --color-goldenrod: #faae42;
   --color-darkslategray: #403f3e;
   --color-orange: #f6a226;
-  --color-midnightblue: #262163;
 
   /* Gaps */
   --gap-2xl: 21px;
@@ -71,6 +76,16 @@ body {
   --gap-8xl: 27px;
   --gap-lg: 18px;
   --gap-10xs: 3px;
+  --gap-sm: 14px;
+  --gap-4xs: 9px;
+  --gap-2xs: 11px;
+  --gap-101xl: 120px;
+  --gap-41xl: 60px;
+  --gap-194xl: 213px;
+  --gap-34xl: 53px;
+  --gap-87xl: 106px;
+  --gap-145xl: 164px;
+  --gap-63xl: 82px;
 
   /* Paddings */
   --padding-21xl: 40px;
@@ -130,11 +145,17 @@ body {
   --padding-lg: 18px;
   --padding-7xs: 6px;
   --padding-sm: 14px;
+  --padding-53xl: 72px;
+  --padding-xs: 12px;
+  --padding-71xl: 90px;
+  --padding-39xl: 58px;
+  --padding-40xl: 59px;
 
   /* Border radiuses */
-  --br-21xl: 40px;
+  --br-3xs: 10px;
   --br-11xl: 30px;
+  --br-21xl: 40px;
   --br-28xl: 47px;
   --br-xl: 20px;
-  --br-3xs: 10px;
+  --br-65xl: 84px;
 }

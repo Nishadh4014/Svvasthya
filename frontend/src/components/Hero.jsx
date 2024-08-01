@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 import './styles/Hero.css';
+import { useNavigate } from 'react-router-dom';
 import watermark from '../assets/watermark.svg';
 import textlogo from '../assets/svvasthya_letter_logo.svg';
 import caregiverImage from '../assets/caregiver.png';
 import nurseImage from '../assets/nursing.png';
 import babycareImage from '../assets/babycare.png';
-import { FiArrowRightCircle } from "react-icons/fi";
 
 function Hero() {
+    const navigate = useNavigate();
+
+    const handleBookNow = () => {
+        navigate('/services');
+    };
+
     useEffect(() => {
         const timer1 = setTimeout(() => {
             const svvasthyaElement = document.querySelector('.hero-svvasthya');
@@ -60,19 +66,19 @@ function Hero() {
             </div>
             <div className="services">
                 <div className="service-card">
+                    <button onClick={handleBookNow}>Book Now</button>
                     <img src={nurseImage} alt="Nursing" />
                     <h2 className="h21">Nursing</h2>
-                    <a className="service-link"><FiArrowRightCircle /></a>
                 </div>
                 <div className="service-card">
+                    <button onClick={handleBookNow}>Book Now</button>
                     <img src={caregiverImage} alt="Caregiver" />
                     <h2 className="h22">Caregiver</h2>
-                    <a className="service-link"><FiArrowRightCircle /></a>
                 </div>
                 <div className="service-card">
+                    <button onClick={handleBookNow}>Book Now</button>
                     <img src={babycareImage} alt="Baby Care" />
                     <h2 className="h23">BabyCare</h2>
-                    <a className="service-link"><FiArrowRightCircle className="service-icon"/></a>
                 </div>
             </div>
 
