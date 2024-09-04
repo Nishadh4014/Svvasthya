@@ -43,7 +43,7 @@ const Header = () => {
           </li>
           <li className="mx-4">
             <a
-              href="#services"
+              href="/services"
               className="text-midnightblue font-inter-tight hover:border-b-2"
             >
               Services

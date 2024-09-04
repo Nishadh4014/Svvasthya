@@ -141,7 +141,9 @@ function Hero() {
                 onClick={handleBookNow}
                 className="flex items-center justify-center w-36 h-12 text-2xl font-medium bg-[background: linear-gradient(180deg, rgba(246, 162, 38, 0) 50%, #F6A226 85%)] border-2 border-white rounded-full transition-all duration-300 group-hover:w-44"
               >
-                <span className="mr-2">Book Now</span>
+                <span className="mr-2">
+                  <a href="/services">Book Now</a>
+                </span>
                 <span className="transition-all duration-300 transform opacity-0 group-hover:opacity-100 group-hover:translate-x-1">
                   →
                 </span>
@@ -152,7 +154,9 @@ function Hero() {
                 onClick={handleBookNow}
                 className="absolute bottom-0 flex items-center justify-center w-36 h-12 text-2xl font-medium bg-orange-500 border-2 border-white rounded-full transition-all duration-300 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:w-44"
               >
-                <span className="mr-[6px]">Book Now</span>
+                <span className="mr-[6px]">
+                  <a href="/services">Book Now</a>
+                </span>
                 <span className="transition-all duration-300 transform group-hover:left-1/2 group-hover:translate-x-1 group-hover:opacity-100">
                   →
                 </span>
@@ -183,7 +187,12 @@ function Hero() {
                 onClick={handleBookNow}
                 className="flex items-center justify-center w-36 h-12 text-2xl font-medium bg-[background: linear-gradient(180deg, rgba(246, 162, 38, 0) 50%, #F6A226 85%)] border-2 border-white rounded-full transition-all duration-300 group-hover:w-44"
               >
-                <span className="mr-2">Book Now</span>
+                <span className="mr-2">
+                  <a href="/services">
+                    {" "}
+                    <a href="/services">Book Now</a>
+                  </a>
+                </span>
                 <span className="transition-all duration-300 transform opacity-0 group-hover:opacity-100 group-hover:translate-x-1">
                   →
                 </span>
@@ -194,7 +203,9 @@ function Hero() {
                 onClick={handleBookNow}
                 className="absolute bottom-0 flex items-center justify-center w-36 h-12 text-2xl font-medium bg-orange-500 border-2 border-white rounded-full transition-all duration-300 transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:w-44"
               >
-                <span className="mr-[6px]">Book Now</span>
+                <span className="mr-[6px]">
+                  <a href="/services">Book Now</a>
+                </span>
                 <span className="transition-all duration-300 transform group-hover:left-1/2 group-hover:translate-x-1 group-hover:opacity-100">
                   →
                 </span>

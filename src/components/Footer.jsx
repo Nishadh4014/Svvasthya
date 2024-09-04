@@ -1,5 +1,5 @@
 import React from "react";
-import footerlogo from "../assets/svvasthya_logo.svg";
+import footerlogo from "../assets/footerlogo.svg";
 
 function Footer() {
   return (
@@ -8,9 +8,13 @@ function Footer() {
         <div className="mx-auto max-w-screen-2xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {/* Center the logo and text in mobile devices */}
-            <div className="flex ml-6 flex-col items-center text-center sm:items-start sm:text-left">
+            <div className="flex ml-0 md:ml-10 flex-col items-center text-center sm:items-start sm:text-left">
               <div className="text-white">
-                <img src={footerlogo} alt="Logo" className=" p-2 rounded" />
+                <img
+                  src={footerlogo}
+                  alt="Logo"
+                  className="w-52 h-50 items-center flex justify-center p-2 rounded"
+                />
               </div>
 
               <p className="mt-4 max-w-xs text-white">

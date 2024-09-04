@@ -4,9 +4,9 @@ import backgroundImage from "../assets/watermark.svg";
 
 const HowWeWorks = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center rounded-lg bg-[#ffe7de] mt-60 sm:mt-40 p-4 ">
+    <div className="flex flex-col md:flex-row justify-between items-center rounded-lg bg-[#ffe7de] mt-60 sm:mt-40  ">
       <div
-        className="bg-contain flex-1 text-center p-5 relative z-10"
+        className="bg-contain flex-1 text-center  relative z-10"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
@@ -14,13 +14,13 @@ const HowWeWorks = () => {
         }}
       >
         <div className="relative z-20">
-          <h2 className="text-4xl md:text-7xl font-bold text-[#282261] m-0">
+          <h2 className="text-4xl md:text-7xl font-bold text-[#282261] -ml-5">
             HOW WE WORK
           </h2>
           <p className="text-xl md:text-2xl text-[ #252627] my-2 mb-5">
             Discover comprehensive health care support services.
           </p>
-          <div className="flex flex-col items-start mx-4 md:mx-14 ">
+          <div className="flex flex-col items-start mx-4 md:mx-24 ">
             <button className="relative flex w-full md:w-[500px] items-center mb-4 p-3 bg-transparent text-left rounded-full shadow-md border-2 border-black hover:bg-[#F0592A] hover:text-white transition-colors duration-300">
               <div className="absolute inset-0 bg-cover bg-center rounded-full"></div>
               <div className="relative text-xl md:text-2xl lg:text-3xl font-bold  flex-1 pl-4 ">
