@@ -30,7 +30,8 @@ const attendantSchema = new mongoose.Schema({
     availability: {
         type: [{ 
             startTime: Date,  // Combined date and time for when availability starts
-            endTime: Date     // Combined date and time for when availability ends
+            endTime: Date,    // Combined date and time for when availability ends
+            address: String
         }],
         required: true
     },

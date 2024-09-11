@@ -13,6 +13,7 @@ exports.login = async (req, res) => {
         if (!admin) return res.status(404).json({ message: 'Admin not found' });
 
         const validPassword = await bcrypt.compare(password, admin.password);
+         // const isvalidPassword = (password === attendant.password);
         if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
 
         const token = jwt.sign({ _id: admin._id, role: admin.role }, 'your_jwt_secret', { expiresIn: '1h' });
