@@ -1,33 +1,37 @@
-const { default: mongoose } = require("mongoose");
-const { type } = require("os");
+const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid'); // For generating unique appointment IDs
 
 const AppointmentSchema = new mongoose.Schema({
-
-    user_id: {
-        type: String
+    appointmentID: {
+        type: String,
+        unique: true,
+        default: uuidv4, // Generates a unique ID
     },
-    attendant_id: {
-        type: String
+    typeOfService: {
+        type: String, // e.g., 'Nursing', 'Physiotherapy'
+        required: true
     },
     date: {
-        type: Date
+        type: Date,
+        required: true
     },
-    category: {
+    duration: {
+        type: Number, // Duration in hours
+        required: true
+    },
+    startTime: {
+        type: Date, // Starting time of the appointment
+        required: true
+    },
+    endTime: {
+        type: Date, // Ending time of the appointment
+        required: true
+    },
+    address: {
         type: String
-    },
-    status: {
-        type: String
-    },
-    report: {
-        type: String       // report id
-    },
-    created_at: {
-        type: Date
-    },
-    updated_at: {
-        type: Date
     }
-
 });
 
-module.exports = mongoose.model('Appointment',AppointmentSchema)
+const Appointment = mongoose.model('Appointment', AppointmentSchema);
+
+module.exports = Appointment;

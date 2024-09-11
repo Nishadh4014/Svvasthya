@@ -17,11 +17,6 @@ const CustomerSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    aadharNumber: {
-        type: String,
-        unique: true,
-        default: 0
-    },
     otp: {
         type: String,
     },
@@ -58,11 +53,10 @@ const CustomerSchema = new mongoose.Schema({
     },
     appointments: [
         {
-            type: mongoose.Schema.Types.ObjectId,         // appointment id
-            default: [],
-            ref: "Appointment"         // foreign key
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Appointment'
         }
-    ],
+    ], // References the Appointment model
     payments: [
         {
             type: mongoose.Schema.Types.ObjectId,          // transaction ids
@@ -83,7 +77,6 @@ const CustomerSchema = new mongoose.Schema({
         }
     }
 });
-
 
 CustomerSchema.methods.generateToken = function () {
     return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '1h' });

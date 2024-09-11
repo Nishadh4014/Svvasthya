@@ -13,6 +13,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/appointment',require('./routes/appointmentRoutes'));
+app.use('/api/attendant',require('./routes/attendantRoutes'));
+app.use('/api/admin',require('./routes/adminRoutes'));
 
 const PORT = process.env.PORT || 5000;
 
