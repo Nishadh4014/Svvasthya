@@ -29,6 +29,11 @@ const AppointmentSchema = new mongoose.Schema({
     },
     address: {
         type: String
+    },
+    assignedAttendant: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Attendant',
+        default: null // Initially null until an attendant is assigned
     }
 });
 

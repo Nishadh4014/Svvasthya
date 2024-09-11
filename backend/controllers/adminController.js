@@ -33,7 +33,30 @@ exports.getAllAppointments = async (req, res) => {
     }
 };
 
-// Assign attendant to an appointment
+// Fetch available attendants for a given time slot
+exports.fetchAvailableAttendants = async (req, res) => {
+    const { startTime, endTime } = req.body;
+    try {
+        const availableAttendants = await Attendant.find({
+            availability: {
+                $elemMatch: {
+                    startTime: { $lte: startTime },
+                    endTime: { $gte: endTime },
+                },
+            },
+        });
+
+        if (availableAttendants.length === 0) {
+            return res.status(404).json({ message: 'No attendants available for the given time slot' });
+        }
+
+        res.json({ availableAttendants });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// Assign an attendant to an appointment
 exports.assignAttendant = async (req, res) => {
     const { appointmentId, attendantId } = req.body;
     try {
@@ -43,10 +66,11 @@ exports.assignAttendant = async (req, res) => {
         if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
         if (!attendant) return res.status(404).json({ message: 'Attendant not found' });
 
-        appointment.assignedAttendant = attendantId;
+        // Assign the attendant to the appointment
+        appointment.assignedAttendant = attendant._id;
         await appointment.save();
 
-        res.json({ message: 'Attendant assigned successfully' });
+        res.json({ message: 'Attendant assigned successfully', attendant });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }

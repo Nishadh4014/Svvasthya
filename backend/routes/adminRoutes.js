@@ -9,7 +9,10 @@ router.post('/login', adminController.login);
 // Get all appointments (authenticated admin only)
 router.get('/appointments', adminController.getAllAppointments);
 
-// Assign attendant to an appointment (authenticated admin only)
-router.post('/assign-attendant', adminController.assignAttendant);
+// Fetch available attendants for a given time slot
+router.post('/available', adminController.fetchAvailableAttendants);
+
+// Assign an attendant to an appointment
+router.post('/assign', adminController.assignAttendant);
 
 module.exports = router;
