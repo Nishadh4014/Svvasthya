@@ -60,6 +60,11 @@ const AppointmentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customer',
         required: true
+    },
+    status: {
+        type: String,
+        enum: ['requested', 'assigned', 'accepted', 'ongoing', 'finished', 'rejected', 'cancelled'],
+        default: 'requested' // Default status
     }
 });
 

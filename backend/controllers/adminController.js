@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
         if (!admin) return res.status(404).json({ message: 'Admin not found' });
 
         const validPassword = await bcrypt.compare(password, admin.password);
-         // const isvalidPassword = (password === attendant.password);
+        // const isvalidPassword = (password === attendant.password);
         if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
 
         const token = jwt.sign({ _id: admin._id, role: admin.role }, 'your_jwt_secret', { expiresIn: '1h' });
@@ -37,19 +37,16 @@ exports.getAllAppointments = async (req, res) => {
 exports.fetchAvailableAttendants = async (req, res) => {
     const { startTime, endTime } = req.body;
     try {
+
+        // Fetch available attendants by matching their single availability slot
         const availableAttendants = await Attendant.find({
-            availability: {
-                $elemMatch: {
-                    startTime: { $lte: startTime },
-                    endTime: { $gte: endTime },
-                },
-            },
+            $and: [
+                { 'availability.startTime': { $lte: endTime } },
+                { 'availability.endTime': { $gte: startTime } }
+            ]
         });
 
-        if (availableAttendants.length === 0) {
-            return res.status(404).json({ message: 'No attendants available for the given time slot' });
-        }
-
+ 
         res.json({ availableAttendants });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
@@ -60,17 +57,26 @@ exports.fetchAvailableAttendants = async (req, res) => {
 exports.assignAttendant = async (req, res) => {
     const { appointmentId, attendantId } = req.body;
     try {
+
         const appointment = await Appointment.findById(appointmentId);
         const attendant = await Attendant.findById(attendantId);
 
         if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
         if (!attendant) return res.status(404).json({ message: 'Attendant not found' });
 
-        // Assign the attendant to the appointment
+        
         appointment.assignedAttendant = attendant._id;
-        await appointment.save();
+        appointment.status = "assigned";
+        // Add the appointment to the attendant's assignedAppointments array if it's not already there
+        if (!attendant.assignedAppointments.includes(appointment._id)) {
+            attendant.assignedAppointments.push(appointment._id);
+        }
 
-        res.json({ message: 'Attendant assigned successfully', attendant });
+        // Save both the appointment and the attendant
+        await appointment.save();
+        await attendant.save();
+
+        res.json({ message: 'Attendant assigned successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }

@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const attendantController = require('../controllers/attendantController');
-
+const authMiddleware = require('../middlewares/authMiddleware');
 
 // Login Attendant
 router.post('/login', attendantController.loginAttendant);
@@ -16,7 +16,6 @@ router.get('/fetchavailability', attendantController.getAvailability);
 // Assign Appointment
 router.post('/appointments/:attendantId', attendantController.assignAppointment);
 
-// Get Assigned Appointments
-router.get('/appointments/:attendantId', attendantController.getAssignedAppointments);
+router.get('/assignedAppointments', authMiddleware, attendantController.getAssignedAppointments);
 
 module.exports = router;

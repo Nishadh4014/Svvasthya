@@ -6,7 +6,7 @@ const Appointment = require('../models/Appointment');
 
 // Helper function to generate JWT
 const generateToken = (attendantId) => {
-    return jwt.sign({ _id: attendantId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    return jwt.sign({ _id: attendantId }, process.env.JWT_SECRET, { expiresIn: '7d' });
 };
 
 // Function to log in an attendant
@@ -21,8 +21,8 @@ exports.loginAttendant = async (req, res) => {
         }
 
         // Check password
-        const isMatch = await bcrypt.compare(password, attendant.password);
-        // const isMatch = (password === attendant.password);
+        // const isMatch = await bcrypt.compare(password, attendant.password);
+         const isMatch = (password === attendant.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
@@ -102,17 +102,24 @@ exports.assignAppointment = async (req, res) => {
     }
 };
 
-// Function to get all assigned appointments for an attendant
+// Function to get assigned appointments for the logged-in attendant
 exports.getAssignedAppointments = async (req, res) => {
     try {
-        const { attendantId } = req.params;
+        // Extract attendant ID from the JWT token (req.user is set by the auth middleware)
+        const attendantId = req.user._id;
 
+        // Find the attendant by their ID and populate assigned appointments
         const attendant = await Attendant.findById(attendantId).populate('assignedAppointments');
+
         if (!attendant) {
             return res.status(404).json({ message: 'Attendant not found' });
         }
 
-        res.status(200).json(attendant.assignedAppointments);
+        // Return the assigned appointments
+        res.status(200).json({
+            message: 'Assigned appointments fetched successfully',
+            assignedAppointments: attendant.assignedAppointments,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

@@ -39,7 +39,6 @@ const attendantSchema = new mongoose.Schema({
         fullAddress: {
             type: String,
             required: true
-
         },
         location: {
             latitude: {
