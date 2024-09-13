@@ -11,10 +11,6 @@ const AppointmentSchema = new mongoose.Schema({
         type: String, // e.g., 'Nursing', 'Physiotherapy'
         required: true
     },
-    date: {
-        type: Date,
-        required: true
-    },
     duration: {
         type: Number, // Duration in hours
         required: true
@@ -28,12 +24,42 @@ const AppointmentSchema = new mongoose.Schema({
         required: true
     },
     address: {
-        type: String
+        fullAddress: {
+            type: String,
+            required: true
+        },
+        houseNumber: {
+            type: String,
+            required: true
+        },
+        landmark: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        }
+    },
+    location: {
+        latitude: {
+            type: Number,
+            required: true
+        },
+        longitude: {
+            type: Number,
+            required: true
+        }
     },
     assignedAttendant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Attendant',
         default: null // Initially null until an attendant is assigned
+    },
+    requestByCustomer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer',
+        required: true
     }
 });
 
