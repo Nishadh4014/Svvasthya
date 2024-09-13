@@ -28,12 +28,29 @@ const attendantSchema = new mongoose.Schema({
         required: true
     },
     availability: {
-        type: [{ 
-            startTime: Date,  // Combined date and time for when availability starts
-            endTime: Date,    // Combined date and time for when availability ends
-            address: String
-        }],
-        required: true
+        startTime: {
+            type: Date, // Starting time of the appointment
+            required: true
+        },
+        endTime: {
+            type: Date, // Ending time of the appointment
+            required: true
+        },
+        fullAddress: {
+            type: String,
+            required: true
+
+        },
+        location: {
+            latitude: {
+                type: Number,
+                required: true
+            },
+            longitude: {
+                type: Number,
+                required: true
+            }
+        }
     },
     assignedAppointments: [{
         type: mongoose.Schema.Types.ObjectId,

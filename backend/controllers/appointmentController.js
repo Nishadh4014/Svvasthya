@@ -16,7 +16,7 @@ exports.createAppointment = async (req, res) => {
         let customer = await Customer.findOne({ mobileNumber });
         if (!customer) {
             return res.status(404).json({ message: 'Customer not found' });
-        }
+        } 
         const newAppointment = new Appointment({
             typeOfService,
             duration,

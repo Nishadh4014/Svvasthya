@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Attendant = require('../models/Attendant');
 const Appointment = require('../models/Appointment');
- 
+
 // Helper function to generate JWT
 const generateToken = (attendantId) => {
     return jwt.sign({ _id: attendantId }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -21,7 +21,7 @@ exports.loginAttendant = async (req, res) => {
         }
 
         // Check password
-       const isMatch = await bcrypt.compare(password, attendant.password);
+        const isMatch = await bcrypt.compare(password, attendant.password);
         // const isMatch = (password === attendant.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
@@ -58,12 +58,13 @@ exports.updateAvailability = async (req, res) => {
     }
 };
 
-// Function to get all availability for an attendant
+
+// Function to get availability for an attendant
 exports.getAvailability = async (req, res) => {
     try {
-        const { attendantId } = req.params;
+        const { email } = req.query; 
 
-        const attendant = await Attendant.findById(attendantId);
+        const attendant = await Attendant.findOne({ email: email });
         if (!attendant) {
             return res.status(404).json({ message: 'Attendant not found' });
         }

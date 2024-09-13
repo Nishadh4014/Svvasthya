@@ -11,7 +11,7 @@ router.post('/login', attendantController.loginAttendant);
 router.put('/availability', attendantController.updateAvailability);
 
 // Get Availability
-router.get('/availability/:attendantId', attendantController.getAvailability);
+router.get('/fetchavailability', attendantController.getAvailability);
 
 // Assign Appointment
 router.post('/appointments/:attendantId', attendantController.assignAppointment);
