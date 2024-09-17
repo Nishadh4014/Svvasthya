@@ -3,6 +3,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Attendant = require('../models/Attendant');
 const Appointment = require('../models/Appointment');
+const { v4: uuidv4 } = require('uuid');
+require("dotenv").config({ path: "backend/config/config.env" });
+const axios = require('axios');
+
+const apiKey = process.env.OLA_MAPS_API_KEY;
+const requestId = uuidv4();
 
 // Helper function to generate JWT
 const generateToken = (attendantId) => {
@@ -22,7 +28,7 @@ exports.loginAttendant = async (req, res) => {
 
         // Check password
         // const isMatch = await bcrypt.compare(password, attendant.password);
-         const isMatch = (password === attendant.password);
+        const isMatch = (password === attendant.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
@@ -62,7 +68,7 @@ exports.updateAvailability = async (req, res) => {
 // Function to get availability for an attendant
 exports.getAvailability = async (req, res) => {
     try {
-        const { email } = req.query; 
+        const { email } = req.query;
 
         const attendant = await Attendant.findOne({ email: email });
         if (!attendant) {
@@ -123,5 +129,60 @@ exports.getAssignedAppointments = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
+    }
+};
+
+
+// Function to get directions from OLA Maps API
+exports.getDirections = async (req, res) => {
+    const { accessToken , origin , destination} = req.body; // The access token is passed from the client
+
+    if (!accessToken) {
+        return res.status(400).json({ error: "Access token not provided" });
+    }
+    console.log(accessToken, origin, destination);
+    const requestId = uuidv4(); // Unique request ID for tracking purposes
+
+    console.log(origin, destination, apiKey);
+    try {
+        const response = await axios.post(
+            `https://api.olamaps.io/routing/v1/directions?origin=${origin}&destination=${destination}&api_key=${apiKey}`,
+           null,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`, // Pass the access token in Authorization header
+                    'X-Request-Id': requestId, // Unique request ID header
+                }
+            }
+        );
+
+        res.json(response.data);
+    } catch (error) {
+        console.error("Error fetching direction:", error.response ? error.response.data : error.message);
+        res.status(500).json({ error: 'Failed to fetch directions' });
+    }
+};
+
+
+// Function to fetch OAuth access token
+exports.fetchAccessToken = async (req, res) => {
+    try {
+        const response = await axios.post('https://account.olamaps.io/realms/olamaps/protocol/openid-connect/token', {
+            client_id: process.env.OLA_CLIENT_ID,
+            client_secret: process.env.OLA_CLIENT_SECRET,
+            grant_type: 'client_credentials',
+            scope: 'openid',
+        }, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+
+        const accessToken = response.data.access_token;
+        console.log(accessToken);
+        res.json({ accessToken });
+    } catch (error) {
+        console.error("Error fetching access token:", error.response ? error.response.data : error.message);
+        res.status(500).json({ error: 'Failed to fetch access token' });
     }
 };

@@ -31,7 +31,7 @@ const AppointmentSchema = new mongoose.Schema({
         houseNumber: {
             type: String,
             required: true
-        },
+        }, 
         landmark: {
             type: String,
             required: true

@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 require("dotenv").config({path: "backend/config/config.env"});
 
 const app = express();
@@ -11,6 +12,8 @@ connectDB();
 // Init Middleware
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/appointment',require('./routes/appointmentRoutes'));

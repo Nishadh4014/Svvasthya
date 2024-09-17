@@ -18,4 +18,11 @@ router.post('/appointments/:attendantId', attendantController.assignAppointment)
 
 router.get('/assignedAppointments', authMiddleware, attendantController.getAssignedAppointments);
 
+// Get Directions
+router.post('/get-directions',  attendantController.getDirections);
+
+// Route to get OAuth access token
+router.post('/authtoken', attendantController.fetchAccessToken);
+
+
 module.exports = router;
