@@ -7,8 +7,21 @@ const AppointmentSchema = new mongoose.Schema({
         unique: true,
         default: uuidv4, // Generates a unique ID
     },
-    typeOfService: {
-        type: String, // e.g., 'Nursing', 'Physiotherapy'
+    mainService: {
+        type: String,
+        enum: ['Nursing', 'Caregiver', 'Baby Care'], // Main service options
+        required: true
+    },
+    subService: {
+        type: String,
+        enum: [
+            // Nursing subservices
+            'ECG', 'Wound Care', 'IV Infusion', 'Catheterization', 'Injections',
+            // Caregiver subservices
+            'Elderly Care', 'Disabled Care', 'Post-surgery Care',
+            // Babycare subservices
+            'Newborn Care', 'Infant Feeding', 'Baby Massage'
+        ], // Subservice options categorized by mainService
         required: true
     },
     duration: {
@@ -31,7 +44,7 @@ const AppointmentSchema = new mongoose.Schema({
         houseNumber: {
             type: String,
             required: true
-        }, 
+        },
         landmark: {
             type: String,
             required: true

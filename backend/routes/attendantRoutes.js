@@ -18,11 +18,10 @@ router.post('/appointments/:attendantId', attendantController.assignAppointment)
 
 router.get('/assignedAppointments', authMiddleware, attendantController.getAssignedAppointments);
 
-// Get Directions
-router.post('/get-directions',  attendantController.getDirections);
+// Route to accept an appointment
+router.post('/acceptAppointment', authMiddleware, attendantController.acceptAppointment);
 
-// Route to get OAuth access token
-router.post('/authtoken', attendantController.fetchAccessToken);
-
+// Route to reject an appointment
+router.post('/rejectAppointment', authMiddleware, attendantController.rejectAppointment);
 
 module.exports = router;

@@ -9,8 +9,11 @@ const app = express();
 // Connect Database
 connectDB();
 
-// Init Middleware
-app.use(cors());
+// CORS setup
+app.use(cors({
+  origin: 'http://localhost:3000', // Frontend URL
+  credentials: true,               // Allow credentials
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

@@ -27,30 +27,44 @@ const attendantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    availability: {
-        startTime: {
-            type: Date, // Starting time of the appointment
-            required: true
-        },
-        endTime: {
-            type: Date, // Ending time of the appointment
-            required: true
-        },
-        fullAddress: {
-            type: String,
-            required: true
-        },
-        location: {
-            latitude: {
-                type: Number,
+    role: {
+        type: String,
+        enum: [
+            // Nursing subservices
+            'ECG', 'Wound Care', 'IV Infusion', 'Catheterization', 'Injections',
+            // Caregiver subservices
+            'Elderly Care', 'Disabled Care', 'Post-surgery Care',
+            // Babycare subservices
+            'Newborn Care', 'Infant Feeding', 'Baby Massage'
+        ], // Subservice options categorized by mainService
+        required: true
+    },
+    availability: [
+        {
+            startTime: {
+                type: Date,
                 required: true
             },
-            longitude: {
-                type: Number,
+            endTime: {
+                type: Date,
                 required: true
+            },
+            fullAddress: {
+                type: String,
+                required: true
+            },
+            location: {
+                latitude: {
+                    type: Number,
+                    required: true
+                },
+                longitude: {
+                    type: Number,
+                    required: true
+                }
             }
         }
-    },
+    ],
     assignedAppointments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Appointment'
