@@ -75,7 +75,7 @@ function Hero() {
       </div>
 
       {/* box content */}
-      <div className="services mt-60 ">
+      <div className="services mt-80 md:mt-60  ">
         <div className="service-card w-[380px] h-[270px] group relative overflow-visible bg-white shadow-lg rounded-3xl sm:w-[440px] sm:h-[310px]">
           {/* Overlay effect */}
           <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300"></div>

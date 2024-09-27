@@ -210,14 +210,26 @@ h1 {
 
 @keyframes moveUpText {
   0% {
-    transform: translateY(100%);
+    transform: translateY(100%) scale(1);
+    animation-timing-function: ease-in;
   }
-  40% {
-    transform: translateY(0);
+  60% {
+    transform: translateY(-30%) scale(0.5);
+    animation-timing-function: ease-out;
+  }
+  70% {
+    transform: translateY(-30%) scale(0.5);
+    animation-timing-function: ease-in-out;
   }
   100% {
-    transform: translateY(-100%) scale(0.5);
+    transform: translateY(-100%) scale(0.8);
+    animation-timing-function: ease-out;
   }
+}
+
+.textlogo {
+  animation: moveUpText 180s cubic-bezier(0.42, 0, 0.58, 1); /* Very slow animation */
+  animation-fill-mode: forwards; /* Keep the final state after animation */
 }
 
 @keyframes moveUpContent {
