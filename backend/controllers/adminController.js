@@ -134,89 +134,6 @@ exports.fetchAvailableAttendants = async (req, res) => {
     }
 };
 
-// Fetch available attendants for a given time slot and sort by proximity
-// exports.fetchAvailableAttendants = async (req, res) => {
-//     const { startTime, endTime, role, appointmentLocation } = req.body;
-
-//     try {
-//         // Step 1: Filter attendants by role-subService
-//         const roleBasedAttendants = await Attendant.find({
-//             role: role // Only fetch attendants that offer the requested subService
-//         });
-
-//         console.log(roleBasedAttendants);
-//         // Step 2: Further filter based on time availability
-//         // Convert incoming startTime and endTime to Date objects
-//         const startDate = new Date(startTime);
-//         const endDate = new Date(endTime);
-
-//           // Step 3: Filter attendants based on availability
-//           const availableAttendants = roleBasedAttendants.filter(attendant => {
-//             return attendant.availability.some(slot => {
-//                 const slotStartTime = new Date(slot.startTime);
-//                 const slotEndTime = new Date(slot.endTime);
-                
-//                 // Check if any availability slot overlaps with the requested time
-//                 return slotStartTime <= endDate && slotEndTime >= startDate;
-//             });
-//         });
-
-//         console.log(availableAttendants);
-//         // Step 4: If there are no available attendants, return early
-//         if (availableAttendants.length === 0) {
-//             return res.status(404).json({ message: 'No attendants available for the selected subService and time slot' });
-//         }
-
-//         // Step 5: Get origins (attendants' locations) and destination (appointment location) for distance matrix API
-//         const origins = availableAttendants
-//             .map(attendant => `${attendant.availability[0].location.latitude},${attendant.availability[0].location.longitude}`)
-//             .join('|');
-//         const destination = `${appointmentLocation.latitude},${appointmentLocation.longitude}`;
-
-//         const requestId = uuidv4();
-//         // Step 6: Call OLA Maps distance matrix API
-//         const distanceMatrixResponse = await axios.get(`https://api.olamaps.io/routing/v1/distanceMatrix`, {
-//             params: {
-//                 origins: origins,
-//                 destinations: destination,
-//                 api_key: process.env.OLA_MAPS_API_KEY
-//             },
-//             headers: {
-//                 'X-Request-Id': requestId
-//             }
-//         });
-
-//         // Check if distances exist in the response
-//         if (!distanceMatrixResponse.data || !distanceMatrixResponse.data.rows || !distanceMatrixResponse.data.rows[0].elements) {
-//             return res.status(500).json({ message: 'Error fetching distance matrix', error: 'No distances found in the response' });
-//         }
-
-//          // Step 7: Extract all elements from rows
-//          const elements = distanceMatrixResponse.data.rows.flatMap(row => row.elements);
-
-
-//         // Step 8: Map the distances to the attendants and sort them by distance (ascending order)
-//         const sortedAttendants = availableAttendants
-//             .map((attendant, index) => {
-//                 const distanceValue = elements[index].distance; // Get the distance value
-//                 return {
-//                     attendant,
-//                     distance: distanceValue // Use distance from the distance matrix response
-//                 };
-//             })
-//             .sort((a, b) => a.distance - b.distance); // Sort by distance (closer attendants first)
-
-//         // Step 9: Return sorted attendants
-//         res.json({
-//             availableAttendants: sortedAttendants.map(item => ({
-//                 attendant: item.attendant,
-//                 distance: item.distance
-//             }))
-//         });
-//     } catch (error) {
-//         res.status(500).json({ message: 'Server error', error: error.message });
-//     }
-// };
 
 // Assign an attendant to an appointment and update availability
 exports.assignAttendant = async (req, res) => {
@@ -241,60 +158,96 @@ exports.assignAttendant = async (req, res) => {
             attendant.assignedAppointments.push(appointment._id);
         }
 
-        // Step 3: Adjust the attendant's availability
-        const updatedAvailability = [];
+        // Step 3: Adjust the attendant's availability, recursively splitting the slots as needed
+        let updatedAvailability = [];
 
         attendant.availability.forEach(slot => {
             const slotStart = new Date(slot.startTime);
             const slotEnd = new Date(slot.endTime);
 
-            // Case 1: Appointment exactly matches the availability slot
+            // Case 1: Appointment overlaps the entire slot, remove it
             if (appointmentStart <= slotStart && appointmentEnd >= slotEnd) {
-                // Entire slot is booked, remove it (do nothing here)
-            } 
-            // Case 2: Appointment is at the start of a slot
+                // The entire slot is covered by the appointment, so skip it (no need to push it to updatedAvailability)
+            }
+            // Case 2: Appointment overlaps at the start of the slot
             else if (appointmentStart <= slotStart && appointmentEnd < slotEnd) {
                 updatedAvailability.push({
-                    startTime: appointmentEnd, // Adjust the start time after the appointment
+                    startTime: appointmentEnd,  // Adjust slot to start after appointment
                     endTime: slotEnd,
                     fullAddress: slot.fullAddress,
                     location: slot.location
                 });
-            } 
-            // Case 3: Appointment is at the end of a slot
+            }
+            // Case 3: Appointment overlaps at the end of the slot
             else if (appointmentStart > slotStart && appointmentEnd >= slotEnd) {
                 updatedAvailability.push({
                     startTime: slotStart,
-                    endTime: appointmentStart, // Adjust the end time before the appointment
+                    endTime: appointmentStart,  // Adjust slot to end before appointment
                     fullAddress: slot.fullAddress,
                     location: slot.location
                 });
-            } 
-            // Case 4: Appointment is in the middle of a slot, split into two slots
+            }
+            // Case 4: Appointment is in the middle of the slot, split into two
             else if (appointmentStart > slotStart && appointmentEnd < slotEnd) {
                 updatedAvailability.push({
                     startTime: slotStart,
-                    endTime: appointmentStart, // First part before the appointment
+                    endTime: appointmentStart,  // First part of the split
                     fullAddress: slot.fullAddress,
                     location: slot.location
                 });
                 updatedAvailability.push({
-                    startTime: appointmentEnd, // Second part after the appointment
-                    endTime: slotEnd,
+                    startTime: appointmentEnd,
+                    endTime: slotEnd,  // Second part of the split
                     fullAddress: slot.fullAddress,
                     location: slot.location
                 });
-            } 
-            // Case 5: Appointment does not affect this slot, retain it as is
+            }
+            // Case 5: No overlap, retain the original slot
             else {
                 updatedAvailability.push(slot);
             }
         });
 
-        // Step 4: Update the attendant's availability with the new set of available slots
+        // Step 4: Recursively split the availability slots in case of overlapping slots
+        const recursivelySplitAvailability = (slots, newStart, newEnd) => {
+            const finalAvailability = [];
+
+            slots.forEach(slot => {
+                const slotStart = new Date(slot.startTime);
+                const slotEnd = new Date(slot.endTime);
+
+                // Split the slot recursively if necessary
+                if (newStart <= slotEnd && newEnd >= slotStart) {
+                    if (newStart > slotStart) {
+                        finalAvailability.push({
+                            startTime: slotStart,
+                            endTime: newStart,  // Adjust to end before new appointment
+                            fullAddress: slot.fullAddress,
+                            location: slot.location
+                        });
+                    }
+                    if (newEnd < slotEnd) {
+                        finalAvailability.push({
+                            startTime: newEnd,
+                            endTime: slotEnd,  // Adjust to start after new appointment
+                            fullAddress: slot.fullAddress,
+                            location: slot.location
+                        });
+                    }
+                } else {
+                    finalAvailability.push(slot);  // Retain slot if no conflict
+                }
+            });
+
+            return finalAvailability;
+        };
+
+        updatedAvailability = recursivelySplitAvailability(updatedAvailability, appointmentStart, appointmentEnd);
+
+        // Step 5: Update the attendant's availability with the new set of available slots
         attendant.availability = updatedAvailability;
 
-        // Step 5: Save both the appointment and the attendant
+        // Step 6: Save both the appointment and the attendant
         await appointment.save();
         await attendant.save();
 
@@ -303,3 +256,4 @@ exports.assignAttendant = async (req, res) => {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
 };
+

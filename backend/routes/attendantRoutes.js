@@ -11,7 +11,7 @@ router.post('/login', attendantController.loginAttendant);
 router.put('/availability', attendantController.updateAvailability);
 
 // Get Availability
-router.get('/fetchavailability', attendantController.getAvailability);
+router.get('/fetchavailability', authMiddleware, attendantController.getAvailability);
 
 // Assign Appointment
 router.post('/appointments/:attendantId', attendantController.assignAppointment);
@@ -23,5 +23,8 @@ router.post('/acceptAppointment', authMiddleware, attendantController.acceptAppo
 
 // Route to reject an appointment
 router.post('/rejectAppointment', authMiddleware, attendantController.rejectAppointment);
+
+// Route to get profile
+router.get('/profile', authMiddleware, attendantController.getProfile);
 
 module.exports = router;
